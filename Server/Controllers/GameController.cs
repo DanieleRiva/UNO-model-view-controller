@@ -84,7 +84,11 @@ namespace Server.Controllers
                 NextHand();
             }
 
-            StartTurn();
+
+            if (_model.scrapCard.number >= 10)
+                PlacingRules(0, true);
+            else
+                StartTurn();
         }
 
         public void StartTurn()
@@ -136,10 +140,8 @@ namespace Server.Controllers
             if (currentView != _views[_handTurn])
                 throw new InvalidOperationException();
 
-            PlacingRules(message.CardNumber);
+            PlacingRules(message.CardNumber, false);
         }
-
-
         public void DrawCard()
         {
             _model.hands[_handTurn].Add(_model.deck[_model.deck.Count - 1]);
@@ -147,113 +149,158 @@ namespace Server.Controllers
             StartTurn();
         }
 
-
-        public void PlacingRules(int cardNumber)
+        public void PlacingRules(int cardNumber, bool scrapCard)
         {
-            List<Card> handList = _model.hands[_handTurn];
-            Card userCard = handList[cardNumber];
+            if (!scrapCard)
+            {
+                List<Card> handList = _model.hands[_handTurn];
+                Card userCard = handList[cardNumber];
 
-            if (userCard.color == _model.scrapCard.color && userCard.number < 10 || userCard.number == _model.scrapCard.number && userCard.number < 10 || _model.scrapCard.number == 13)
-            {
-                _model.scrapCard = userCard;
-                handList.RemoveAt(cardNumber);
-                _model.hands[_handTurn] = handList;
-                StartGame();
-                NextHand();
-                StartTurn();
-                NextHand();
-                StartGame();
-                TurnDirection();
-            }
-            else if (userCard.color == _model.scrapCard.color && userCard.number == 10 || userCard.number == _model.scrapCard.number && userCard.number == 10 || _model.scrapCard.number == 13)
-            {
-                _model.scrapCard = userCard;
-                handList.RemoveAt(cardNumber);
-                _model.hands[_handTurn] = handList;
-                StartGame();
-                NextHand();
-                StartGame();
-                NextHand();
-                StartTurn();
-            }
-            else if (userCard.color == _model.scrapCard.color && userCard.number == 11 || userCard.number == _model.scrapCard.number && userCard.number == 11 || _model.scrapCard.number == 13)
-            {
-                if (turnDirection)
-                    turnDirection = false;
-                else
-                    turnDirection = true;
-
-                _model.scrapCard = userCard;
-                handList.RemoveAt(cardNumber);
-                StartGame();
-                NextHand();
-                StartTurn();
-                NextHand();
-                StartGame();
-                TurnDirection();
-            }
-            else if (userCard.color == _model.scrapCard.color && userCard.number == 12 || userCard.number == _model.scrapCard.number && userCard.number == 12 || _model.scrapCard.number == 13)
-            {
-                _model.scrapCard = userCard;
-                handList.RemoveAt(handList.Count - 1);
-                //invia messaggio
-                NextHand();
-                //quello dopo deve pescare e salto tunro
-                handList = _model.hands[_handTurn];
-                handList.Add(_model.deck[_model.deck.Count - 1]);
-                _model.deck.RemoveAt(_model.deck.Count - 1);
-                handList.Add(_model.deck[_model.deck.Count - 1]);
-                _model.deck.RemoveAt(_model.deck.Count - 1);
-                //tocca quello dopo
-                NextHand();
-            }
-            else if (userCard.number == 13 || _model.scrapCard.number == 13)
-            {
-                _model.scrapCard = userCard;
-                handList.RemoveAt(cardNumber);
-
-                //invia messaggio scelta colore
-                PickColor();
-            }
-            else if (userCard.number == 14)
-            {
-                foreach (Card usCard in handList)
+                if (userCard.color == _model.scrapCard.color && userCard.number < 10 || userCard.number == _model.scrapCard.number && userCard.number < 10)
                 {
-                    control = DrawCheck(usCard, _model.scrapCard);
-                    if (!control)
-                        control = false;
-                    break;
-                }
+                    _model.scrapCard = userCard;
+                    handList.RemoveAt(cardNumber);
+                    _model.hands[_handTurn] = handList;
 
-                if (control)
+                    StartGame();
+                    NextHand();
+                    StartTurn();
+                    NextHand();
+                    StartGame();
+                    TurnDirection();
+                }
+                else if (userCard.color == _model.scrapCard.color && userCard.number == 10 || userCard.number == _model.scrapCard.number && userCard.number == 10)
+                {
+                    _model.scrapCard = userCard;
+                    handList.RemoveAt(cardNumber);
+                    _model.hands[_handTurn] = handList;
+
+                    StartGame();
+                    NextHand();
+                    StartGame();
+                    NextHand();
+                    StartTurn();
+                }
+                else if (userCard.color == _model.scrapCard.color && userCard.number == 11 || userCard.number == _model.scrapCard.number && userCard.number == 11)
+                {
+                    if (turnDirection)
+                        turnDirection = false;
+                    else
+                        turnDirection = true;
+
+
+                    _model.scrapCard = userCard;
+                    handList.RemoveAt(cardNumber);
+                    _model.hands[_handTurn] = handList;
+
+                    StartGame();
+                    NextHand();
+                    StartTurn();
+                    NextHand();
+                    StartGame();
+                    TurnDirection();
+                }
+                else if (userCard.color == _model.scrapCard.color && userCard.number == 12 || userCard.number == _model.scrapCard.number && userCard.number == 12)
                 {
                     _model.scrapCard = userCard;
                     handList.RemoveAt(handList.Count - 1);
-                    //messaggio scelta colore
-                    //messaggio cambio scrap
+                    _model.hands[_handTurn] = handList;
+                    StartGame();
+
                     NextHand();
                     handList = _model.hands[_handTurn];
                     handList.Add(_model.deck[_model.deck.Count - 1]);
                     _model.deck.RemoveAt(_model.deck.Count - 1);
                     handList.Add(_model.deck[_model.deck.Count - 1]);
                     _model.deck.RemoveAt(_model.deck.Count - 1);
-                    handList.Add(_model.deck[_model.deck.Count - 1]);
-                    _model.deck.RemoveAt(_model.deck.Count - 1);
-                    handList.Add(_model.deck[_model.deck.Count - 1]);
-                    _model.deck.RemoveAt(_model.deck.Count - 1);
-                    //messaggio aggiunta carte
+                    _model.hands[_handTurn] = handList;
+                    StartGame();
+
                     NextHand();
-                    //messaggio scelta carta
+                    StartTurn();
+                }
+                else if (userCard.number == 13 || _model.scrapCard.number == 13)
+                {
+                    _model.scrapCard = userCard;
+                    handList.RemoveAt(cardNumber);
+
+                    //invia messaggio scelta colore
+                    PickColor();
+                }
+                else if (userCard.number == 14)
+                {
+                    foreach (Card usCard in handList)
+                    {
+                        control = DrawCheck(usCard, _model.scrapCard);
+
+                        if (!control)
+                        {
+                            control = false;
+                            break;
+                        }
+                    }
+
+                    if (control)
+                    {
+                        _model.scrapCard = userCard;
+                        handList.RemoveAt(handList.Count - 1);
+                        //messaggio scelta colore
+                        //messaggio cambio scrap
+                        NextHand();
+                        handList = _model.hands[_handTurn];
+                        handList.Add(_model.deck[_model.deck.Count - 1]);
+                        _model.deck.RemoveAt(_model.deck.Count - 1);
+                        handList.Add(_model.deck[_model.deck.Count - 1]);
+                        _model.deck.RemoveAt(_model.deck.Count - 1);
+                        handList.Add(_model.deck[_model.deck.Count - 1]);
+                        _model.deck.RemoveAt(_model.deck.Count - 1);
+                        handList.Add(_model.deck[_model.deck.Count - 1]);
+                        _model.deck.RemoveAt(_model.deck.Count - 1);
+                        //messaggio aggiunta carte
+                        NextHand();
+                        //messaggio scelta carta
+                    }
+                    else
+                    {
+                        //messaggio carta non puo essere inviata
+                    }
+
                 }
                 else
                 {
-                    //messaggio carta non puo essere inviata
+                    StartTurn();
                 }
+            }
+            else
+            {
+                if (_model.scrapCard.number == 10)
+                {
+                    NextHand();
+                    StartTurn();
+                }
+                else if (_model.scrapCard.number == 11)
+                {
+                    turnDirection = false;
+                    StartTurn();
+                }
+                else if (_model.scrapCard.number == 12)
+                {
+                    _model.hands[_handTurn].Add(_model.deck[_model.deck.Count - 1]);
+                    _model.deck.RemoveAt(_model.deck.Count - 1);
+                    _model.hands[_handTurn].Add(_model.deck[_model.deck.Count - 1]);
+                    _model.deck.RemoveAt(_model.deck.Count - 1);
 
+                    StartGame();
+                    NextHand();
+                    StartTurn();
+                }
+                else if (_model.scrapCard.number == 13)
+                {
+
+                }
             }
 
         }
-
 
         public bool DrawCheck(Card userCard, Card scrapCard)
         {
@@ -275,7 +322,6 @@ namespace Server.Controllers
             }
             return true;
         }
-
 
         public void TurnDirection()
         {

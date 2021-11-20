@@ -110,8 +110,15 @@ namespace Server.Models
 
             // Add card to scrapdeck
             scrapCard = deck[deck.Count - 1];
-            deck.RemoveAt(deck.Count - 1);
+            int cont = 1;
 
+            while (scrapCard.number == 14)
+            {
+                cont++;
+                scrapCard = deck[deck.Count - cont];
+            }
+
+            deck.RemoveAt(deck.Count - cont);
         }
 
         public void Shuffle()

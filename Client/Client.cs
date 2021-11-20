@@ -18,8 +18,8 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            Console.SetWindowSize(94, 40);
-            Console.SetBufferSize(500, 40);
+            Console.SetWindowSize(200, 40);
+            Console.SetBufferSize(200, 40);
 
             Console.ForegroundColor = ConsoleColor.Cyan;
             string title = @" █    ██  ███▄    █  ▒█████      ▄████▄   ▒█████   ███▄    █   ██████  ▒█████   ██▓    ▓█████ 

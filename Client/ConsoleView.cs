@@ -67,7 +67,7 @@ namespace Client
 
             foreach (Card drawnCard in handCardList)
             {
-                int positionY = handCardList.Count + 20;
+                int positionY = 25;
 
                 Console.ForegroundColor = drawnCard.color;
 
@@ -103,7 +103,6 @@ namespace Client
                 Console.SetCursorPosition(positionX, positionY + 4);
                 Console.WriteLine("|     |");
 
-
                 Console.SetCursorPosition(positionX, positionY + 5);
                 Console.WriteLine("|_____|");
 
@@ -122,8 +121,7 @@ namespace Client
 
         public void PrintScrapCard(Card scrapCard)
         {
-            int positionX = 10;
-            int positionXCounter = 3;
+            int positionX = 0;
             int counter = 1;
 
             int positionY = 10;
@@ -131,50 +129,49 @@ namespace Client
             Console.ForegroundColor = scrapCard.color;
 
             Console.SetCursorPosition(positionX, positionY);
-            Console.WriteLine(" _____ ");
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", " _____ "));
 
             Console.SetCursorPosition(positionX, positionY + 1);
-            Console.WriteLine("|     |");
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "|     |"));
 
             Console.SetCursorPosition(positionX, positionY + 2);
-            Console.WriteLine("|     |");
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "|     |"));
 
             Console.SetCursorPosition(positionX, positionY + 3);
 
             if (scrapCard.number == 10)
-                Console.WriteLine("|  X  |");
+                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "|  X  |"));
 
             else if (scrapCard.number == 11)
-                Console.WriteLine("| <-> |");
+                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "| <-> |"));
 
             else if (scrapCard.number == 12)
-                Console.WriteLine("| + 2 |");
+                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "| + 2 |"));
 
             else if (scrapCard.number == 13)
-                Console.WriteLine("|COLOR|");
+                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "|COLOR|"));
 
             else if (scrapCard.number == 14)
-                Console.WriteLine("| + 4 |");
+                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "| + 4 |"));
 
             else
-                Console.WriteLine($"|  {scrapCard.number}  |");
+                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", $"|  {scrapCard.number}  |"));
 
             Console.SetCursorPosition(positionX, positionY + 4);
-            Console.WriteLine("|     |");
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "|     |"));
 
 
             Console.SetCursorPosition(positionX, positionY + 5);
-            Console.WriteLine("|_____|");
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "|_____|"));
 
             Console.ResetColor();
-
 
             counter++;
         }
 
         public string ChooseMove()
         {
-            Console.SetCursorPosition(0, Console.WindowHeight - 2);
+            Console.SetCursorPosition(0, Console.WindowHeight - 5);
             Console.WriteLine("Inserisci la carta che vuoi utilizzare, inserisci \"p\" per pescare. ");
 
             return Console.ReadLine();
@@ -182,7 +179,7 @@ namespace Client
 
         public string ChangeColor()
         {
-            Console.SetCursorPosition(0, Console.WindowHeight - 2);
+            Console.SetCursorPosition(0, Console.WindowHeight - 5);
 
             // Clear previous text
             ClearLine();
