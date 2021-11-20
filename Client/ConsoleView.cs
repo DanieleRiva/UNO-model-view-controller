@@ -43,6 +43,13 @@ namespace Client
             Console.Clear();
         }
 
+        private void ClearLine()
+        {
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, Console.CursorTop);
+        }
+
         private void PrintBoard()
         {
             Clear();
@@ -170,6 +177,17 @@ namespace Client
             Console.SetCursorPosition(0, Console.WindowHeight - 2);
             Console.WriteLine("Inserisci la carta che vuoi utilizzare, inserisci \"p\" per pescare. ");
 
+            return Console.ReadLine();
+        }
+
+        public string ChangeColor()
+        {
+            Console.SetCursorPosition(0, Console.WindowHeight - 2);
+
+            // Clear previous text
+            ClearLine();
+
+            Console.WriteLine("Inserisci il colore: (r, b, v, g)");
             return Console.ReadLine();
         }
     }

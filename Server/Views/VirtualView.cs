@@ -39,6 +39,9 @@ namespace Server.Views
                     case Utils.Type.DRAW_CARD:
                         _controller.DrawCard();
                         break;
+                    case Utils.Type.CHANGE_COLOR:
+                        _controller.ChangeColor(message.Body);
+                        break;
                     default:
                         Console.WriteLine($"{message.Type} not supported");
                         break;

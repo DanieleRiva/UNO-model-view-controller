@@ -97,7 +97,39 @@ namespace Server.Controllers
             _views[_handTurn].SendMessage(new Message { Type = Utils.Type.START_GAME, Cards = _model.hands[_handTurn], SingleCard = _model.scrapCard });
         }
 
+        public void PickColor()
+        {
+            _views[_handTurn].SendMessage(new Message { Type = Utils.Type.CHANGE_COLOR });
+        }
+        public void ChangeColor(string colorChar)
+        {
+            switch (colorChar)
+            {
+                case "r":
+                    _model.scrapCard.color = ConsoleColor.Red;
+                    break;
 
+                case "b":
+                    _model.scrapCard.color = ConsoleColor.Blue;
+                    break;
+
+                case "g":
+                    _model.scrapCard.color = ConsoleColor.Yellow;
+                    break;
+
+                case "v":
+                    _model.scrapCard.color = ConsoleColor.Green;
+                    break;
+            }
+
+            StartGame();
+            NextHand();
+            StartTurn();
+            NextHand();
+            StartGame();
+            NextHand();
+            NextHand();
+        }
 
         public void Move(VirtualView currentView, Message message)
         {
@@ -120,8 +152,8 @@ namespace Server.Controllers
         {
             List<Card> handList = _model.hands[_handTurn];
             Card userCard = handList[cardNumber];
-            
-            if (userCard.color == _model.scrapCard.color && userCard.number < 10 || userCard.number == _model.scrapCard.number && userCard.number < 10)
+
+            if (userCard.color == _model.scrapCard.color && userCard.number < 10 || userCard.number == _model.scrapCard.number && userCard.number < 10 || _model.scrapCard.number == 13)
             {
                 _model.scrapCard = userCard;
                 handList.RemoveAt(cardNumber);
@@ -132,9 +164,8 @@ namespace Server.Controllers
                 NextHand();
                 StartGame();
                 TurnDirection();
-
             }
-            else if (userCard.color == _model.scrapCard.color && userCard.number == 10 || userCard.number == _model.scrapCard.number && userCard.number == 10)
+            else if (userCard.color == _model.scrapCard.color && userCard.number == 10 || userCard.number == _model.scrapCard.number && userCard.number == 10 || _model.scrapCard.number == 13)
             {
                 _model.scrapCard = userCard;
                 handList.RemoveAt(cardNumber);
@@ -145,14 +176,13 @@ namespace Server.Controllers
                 NextHand();
                 StartTurn();
             }
-            else if (userCard.color == _model.scrapCard.color && userCard.number == 11 || userCard.number == _model.scrapCard.number && userCard.number == 11)
+            else if (userCard.color == _model.scrapCard.color && userCard.number == 11 || userCard.number == _model.scrapCard.number && userCard.number == 11 || _model.scrapCard.number == 13)
             {
                 if (turnDirection)
                     turnDirection = false;
                 else
                     turnDirection = true;
 
-
                 _model.scrapCard = userCard;
                 handList.RemoveAt(cardNumber);
                 StartGame();
@@ -162,7 +192,7 @@ namespace Server.Controllers
                 StartGame();
                 TurnDirection();
             }
-            else if (userCard.color == _model.scrapCard.color && userCard.number == 12 || userCard.number == _model.scrapCard.number && userCard.number == 12)
+            else if (userCard.color == _model.scrapCard.color && userCard.number == 12 || userCard.number == _model.scrapCard.number && userCard.number == 12 || _model.scrapCard.number == 13)
             {
                 _model.scrapCard = userCard;
                 handList.RemoveAt(handList.Count - 1);
@@ -177,11 +207,13 @@ namespace Server.Controllers
                 //tocca quello dopo
                 NextHand();
             }
-            else if (userCard.number == 13)
+            else if (userCard.number == 13 || _model.scrapCard.number == 13)
             {
                 _model.scrapCard = userCard;
-                handList.RemoveAt(handList.Count - 1);
+                handList.RemoveAt(cardNumber);
+
                 //invia messaggio scelta colore
+                PickColor();
             }
             else if (userCard.number == 14)
             {
@@ -217,9 +249,9 @@ namespace Server.Controllers
                 {
                     //messaggio carta non puo essere inviata
                 }
-                
+
             }
-            
+
         }
 
 
