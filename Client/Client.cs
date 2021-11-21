@@ -21,7 +21,7 @@ namespace Client
             Console.SetWindowSize(200, 40);
             Console.SetBufferSize(200, 40);
 
-            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.Red;
             string title = @" █    ██  ███▄    █  ▒█████      ▄████▄   ▒█████   ███▄    █   ██████  ▒█████   ██▓    ▓█████ 
  ██  ▓██▒ ██ ▀█   █ ▒██▒  ██▒   ▒██▀ ▀█  ▒██▒  ██▒ ██ ▀█   █ ▒██    ▒ ▒██▒  ██▒▓██▒    ▓█   ▀ 
 ▓██  ▒██░▓██  ▀█ ██▒▒██░  ██▒   ▒▓█    ▄ ▒██░  ██▒▓██  ▀█ ██▒░ ▓██▄   ▒██░  ██▒▒██░    ▒███   
@@ -57,7 +57,7 @@ namespace Client
 
             bool canProceed = false;
             string pressedKey = string.Empty;
-            char[] colors = new char[] { 'r', 'b', 'g', 'v' };
+            char[] colors = new char[] { 'r', 'b', 'y', 'g' };
 
             while (true)
             {
@@ -133,6 +133,56 @@ namespace Client
                             Body = pressedKey
                         }));
 
+                        break;
+
+                    case Type.DRAW_CARD:
+                        view.PrintCards(message.Cards);
+                        view.PrintScrapCard(message.SingleCard);
+
+                        canProceed = false;
+
+                        while (canProceed == false)
+                        {
+                            pressedKey = view.ChooseMoveP(message.Cards);
+
+                            if (pressedKey.ToLower() == "s")
+                            {
+                                canProceed = true;
+                                writer.WriteLine(JsonSerializer.Serialize(new Message
+                                {
+                                    Type = Type.PASS_TURN
+                                }));
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    if (int.Parse(pressedKey) >= 1 && int.Parse(pressedKey) <= message.Cards.Count)
+                                    {
+                                        canProceed = true;
+
+                                        writer.WriteLine(JsonSerializer.Serialize(new Message
+                                        {
+                                            Type = Type.MOVE,
+                                            Body = "p_pressed",
+                                            CardNumber = int.Parse(pressedKey) - 1
+                                        }));
+                                    }
+                                }
+                                catch (Exception)
+                                {
+
+                                }
+                            }
+                        }
+                        break;
+
+                    case Type.WIN:
+                        view.Win();
+                        break;
+
+                    case Type.LOSE:
+                        view.Lose();
                         break;
                 }
             }

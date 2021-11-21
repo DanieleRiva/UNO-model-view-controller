@@ -42,6 +42,9 @@ namespace Server.Views
                     case Utils.Type.CHANGE_COLOR:
                         _controller.ChangeColor(message.Body);
                         break;
+                    case Utils.Type.PASS_TURN:
+                        _controller.PassTurn();
+                        break;
                     default:
                         Console.WriteLine($"{message.Type} not supported");
                         break;

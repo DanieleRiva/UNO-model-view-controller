@@ -129,40 +129,40 @@ namespace Client
             Console.ForegroundColor = scrapCard.color;
 
             Console.SetCursorPosition(positionX, positionY);
-            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", " _____ "));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "   _____ "));
 
             Console.SetCursorPosition(positionX, positionY + 1);
-            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "|     |"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "  |     |"));
 
             Console.SetCursorPosition(positionX, positionY + 2);
-            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "|     |"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "  |     |"));
 
             Console.SetCursorPosition(positionX, positionY + 3);
 
             if (scrapCard.number == 10)
-                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "|  X  |"));
+                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "  |  X  |"));
 
             else if (scrapCard.number == 11)
-                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "| <-> |"));
+                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "  | <-> |"));
 
             else if (scrapCard.number == 12)
-                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "| + 2 |"));
+                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "  | + 2 |"));
 
             else if (scrapCard.number == 13)
-                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "|COLOR|"));
+                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "  |COLOR|"));
 
             else if (scrapCard.number == 14)
-                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "| + 4 |"));
+                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "  | + 4 |"));
 
             else
-                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", $"|  {scrapCard.number}  |"));
+                Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", $"  |  {scrapCard.number}  |"));
 
             Console.SetCursorPosition(positionX, positionY + 4);
-            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "|     |"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "  |     |"));
 
 
             Console.SetCursorPosition(positionX, positionY + 5);
-            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "|_____|"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "  |_____|"));
 
             Console.ResetColor();
 
@@ -177,6 +177,13 @@ namespace Client
             return Console.ReadLine();
         }
 
+        public string ChooseMoveP(List<Card> handCardList)
+        {
+            Console.SetCursorPosition(0, Console.WindowHeight - 5);
+            Console.WriteLine("Inserisci la carta numero " + handCardList.Count + " oppure inserisci \"s\" per passare il turno. ");
+
+            return Console.ReadLine();
+        }
         public string ChangeColor()
         {
             Console.SetCursorPosition(0, Console.WindowHeight - 5);
@@ -184,8 +191,28 @@ namespace Client
             // Clear previous text
             ClearLine();
 
-            Console.WriteLine("Inserisci il colore: (r, b, v, g)");
+            Console.WriteLine("Inserisci il colore: (r, b, y, g)");
             return Console.ReadLine();
+        }
+
+        public void Win()
+        {
+            ClearLine();
+
+            Console.SetCursorPosition(0, Console.WindowHeight - 2);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("HAI VINTO LA PARTITA!");
+            Console.ResetColor();
+        }
+
+        public void Lose()
+        {
+            ClearLine();
+
+            Console.SetCursorPosition(0, Console.WindowHeight - 2);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Hai perso la partita...");
+            Console.ResetColor();
         }
     }
 }

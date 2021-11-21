@@ -20,8 +20,11 @@ namespace Server.Utils
         START_GAME,
         START_TURN,
         DRAW_CARD,
+        PASS_TURN,
         MOVE,
-        CHANGE_COLOR
+        CHANGE_COLOR,
+        WIN,
+        LOSE
         // Add more types here...
     }
 }

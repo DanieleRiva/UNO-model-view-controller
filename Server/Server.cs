@@ -18,7 +18,7 @@ namespace Server
             Console.WindowWidth = 82;
             Console.SetBufferSize(82, 500);
 
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             string title = @" █    ██  ███▄    █  ▒█████       ██████ ▓█████  ██▀███   ██▒   █▓▓█████  ██▀███  
  ██  ▓██▒ ██ ▀█   █ ▒██▒  ██▒   ▒██    ▒ ▓█   ▀ ▓██ ▒ ██▒▓██░   █▒▓█   ▀ ▓██ ▒ ██▒
 ▓██  ▒██░▓██  ▀█ ██▒▒██░  ██▒   ░ ▓██▄   ▒███   ▓██ ░▄█ ▒ ▓██  █▒░▒███   ▓██ ░▄█ ▒
