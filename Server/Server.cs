@@ -8,6 +8,7 @@ using Microsoft.VisualBasic.FileIO;
 using Server.Models;
 using Server.Controllers;
 using Server.Views;
+using System.Threading;
 
 namespace Server
 {
@@ -43,7 +44,7 @@ namespace Server
             listener.Listen(10);
 
             Console.WriteLine("Server listening on port 8080");
-            model = new GameModel();
+            //model = new GameModel();
 
             var tasks = new Task[3];
 
@@ -65,6 +66,12 @@ namespace Server
                 tasks[i] = Task.Run(view.Run);
                 view.SendMessage(new Utils.Message());
                 controller.Connected(socket, i, username);
+            }
+
+            for (int i = 5; i > -1; i--)
+            {
+                controller.Starting(i);
+                Thread.Sleep(1000);
             }
 
             controller.Start();

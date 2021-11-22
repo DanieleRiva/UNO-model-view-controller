@@ -18,8 +18,8 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            Console.SetWindowSize(200, 40);
-            Console.SetBufferSize(200, 40);
+            Console.SetWindowSize(175, 40);
+            Console.SetBufferSize(500, 40);
 
             Console.ForegroundColor = ConsoleColor.Red;
             string title = @" █    ██  ███▄    █  ▒█████      ▄████▄   ▒█████   ███▄    █   ██████  ▒█████   ██▓    ▓█████ 
@@ -40,6 +40,8 @@ namespace Client
             Console.ForegroundColor = ConsoleColor.Cyan;
             string username = Console.ReadLine();
             Console.ResetColor();
+
+            Console.Title = $"UNO Console: {username}";
 
             var view = new ConsoleView();
 
@@ -65,9 +67,12 @@ namespace Client
 
                 switch (message.Type)
                 {
-                    // If the message from the server contains the START_GAME body, call start() from "view".
                     case Type.CONNECTED:
                         view.Connected(IPAddress.Loopback, port, message);
+                        break;
+
+                    case Type.STARTING:
+                        view.Starting(message.Body);
                         break;
 
                     case Type.START_GAME:

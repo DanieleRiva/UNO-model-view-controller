@@ -54,7 +54,6 @@ namespace Server.Views
 
         public void SendMessage(Message message)
         {
-            Console.WriteLine(JsonSerializer.Serialize(message));
             _writer.WriteLine(JsonSerializer.Serialize(message));
         }
     }

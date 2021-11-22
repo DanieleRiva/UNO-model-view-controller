@@ -18,9 +18,9 @@ namespace Server.Models
 
         public Card(int _id, ConsoleColor _color, int _number)
         {
-            this.id = _id;
-            this.color = _color;
-            this.number = _number;
+            id = _id;
+            color = _color;
+            number = _number;
         }
     }
 

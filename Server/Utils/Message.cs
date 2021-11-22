@@ -17,6 +17,7 @@ namespace Server.Utils
     public enum Type
     {
         CONNECTED,
+        STARTING,
         START_GAME,
         START_TURN,
         DRAW_CARD,
@@ -25,6 +26,5 @@ namespace Server.Utils
         CHANGE_COLOR,
         WIN,
         LOSE
-        // Add more types here...
     }
 }

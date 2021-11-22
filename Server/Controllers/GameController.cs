@@ -15,7 +15,7 @@ namespace Server.Controllers
         private VirtualView[] _views;
         private int _turn;
         private int _handTurn = 0;
-        private int round;
+
         bool turnDirection = true;
         bool control = false;
         bool drawFour = false;
@@ -59,25 +59,28 @@ namespace Server.Controllers
                 {
                     if (virtualView._socket == socket)
                     {
-                        string prova = $"Ti sei connesso al server. [{players + 1}/3]";
-                        virtualView.SendMessage(new Message { Type = Utils.Type.CONNECTED, Body = prova });
+                        string connected = $"\nTi sei connesso al server. [{players + 1}/3]";
+                        virtualView.SendMessage(new Message { Type = Utils.Type.CONNECTED, Body = connected });
                     }
                     else
                     {
-                        string prova = $"{username} si è connesso. [{players + 1}/3]";
-                        virtualView.SendMessage(new Message { Type = Utils.Type.CONNECTED, Body = prova });
+                        string connected = $"\n{username} si è connesso. [{players + 1}/3]";
+                        virtualView.SendMessage(new Message { Type = Utils.Type.CONNECTED, Body = connected });
                     }
                 }
             }
         }
 
+        public void Starting(int countdown)
+        {
+            foreach (var virtualView in _views)
+                virtualView.SendMessage(new Message { Type = Utils.Type.STARTING, Body = countdown.ToString() });
+        }
+
         public void Start()
         {
             foreach (var virtualView in _views)
-            {
                 Console.WriteLine(virtualView);
-                //virtualView.SendMessage(new Message { Type = Utils.Type.START_GAME });
-            }
 
             for (int i = 0; i < 3; i++)
             {
@@ -92,22 +95,22 @@ namespace Server.Controllers
                 StartTurn();
         }
 
-        public void StartTurn()
+        private void StartTurn()
         {
             _views[_handTurn].SendMessage(new Message { Type = Utils.Type.START_TURN, Cards = _model.hands[_handTurn], SingleCard = _model.scrapCard });
         }
 
-        public void StartGame()
+        private void StartGame()
         {
             _views[_handTurn].SendMessage(new Message { Type = Utils.Type.START_GAME, Cards = _model.hands[_handTurn], SingleCard = _model.scrapCard });
         }
 
-        public void DrawCardMessage()
+        private void DrawCardMessage()
         {
             _views[_handTurn].SendMessage(new Message { Type = Utils.Type.DRAW_CARD, Cards = _model.hands[_handTurn], SingleCard = _model.scrapCard });
         }
 
-        public void PickColor()
+        private void PickColor()
         {
             _views[_handTurn].SendMessage(new Message { Type = Utils.Type.CHANGE_COLOR });
         }
@@ -173,6 +176,7 @@ namespace Server.Controllers
             else
                 PlacingRules(message.CardNumber, false, false);
         }
+
         public void DrawCard()
         {
             _model.hands[_handTurn].Add(_model.deck[_model.deck.Count - 1]);
@@ -190,7 +194,7 @@ namespace Server.Controllers
             TurnDirection();
         }
 
-        public void PlacingRules(int cardNumber, bool scrapCard, bool pPressed)
+        private void PlacingRules(int cardNumber, bool scrapCard, bool pPressed)
         {
             if (!scrapCard)
             {
@@ -358,7 +362,7 @@ namespace Server.Controllers
             }
         }
 
-        public bool DrawCheck(Card userCard, Card scrapCard)
+        private bool DrawCheck(Card userCard, Card scrapCard)
         {
             if (userCard.color == scrapCard.color && userCard.number < 10 || 
                 userCard.number == scrapCard.number && userCard.number < 10 || 
@@ -381,7 +385,7 @@ namespace Server.Controllers
                 return true;
         }
 
-        public void TurnDirection()
+        private void TurnDirection()
         {
             if (_handTurn == 0 && turnDirection)
                 _handTurn = 2;
