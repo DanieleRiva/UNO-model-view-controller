@@ -1,0 +1,14 @@
+C:\Users\Daniele\Desktop\Git\RivaKamalProgettoTps\Server\bin\Debug\netcoreapp3.1\Server.exe
+C:\Users\Daniele\Desktop\Git\RivaKamalProgettoTps\Server\bin\Debug\netcoreapp3.1\Server.deps.json
+C:\Users\Daniele\Desktop\Git\RivaKamalProgettoTps\Server\bin\Debug\netcoreapp3.1\Server.runtimeconfig.json
+C:\Users\Daniele\Desktop\Git\RivaKamalProgettoTps\Server\bin\Debug\netcoreapp3.1\Server.runtimeconfig.dev.json
+C:\Users\Daniele\Desktop\Git\RivaKamalProgettoTps\Server\bin\Debug\netcoreapp3.1\Server.dll
+C:\Users\Daniele\Desktop\Git\RivaKamalProgettoTps\Server\bin\Debug\netcoreapp3.1\Server.pdb
+C:\Users\Daniele\Desktop\Git\RivaKamalProgettoTps\Server\obj\Debug\netcoreapp3.1\Server.csproj.AssemblyReference.cache
+C:\Users\Daniele\Desktop\Git\RivaKamalProgettoTps\Server\obj\Debug\netcoreapp3.1\Server.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Daniele\Desktop\Git\RivaKamalProgettoTps\Server\obj\Debug\netcoreapp3.1\Server.AssemblyInfoInputs.cache
+C:\Users\Daniele\Desktop\Git\RivaKamalProgettoTps\Server\obj\Debug\netcoreapp3.1\Server.AssemblyInfo.cs
+C:\Users\Daniele\Desktop\Git\RivaKamalProgettoTps\Server\obj\Debug\netcoreapp3.1\Server.csproj.CoreCompileInputs.cache
+C:\Users\Daniele\Desktop\Git\RivaKamalProgettoTps\Server\obj\Debug\netcoreapp3.1\Server.dll
+C:\Users\Daniele\Desktop\Git\RivaKamalProgettoTps\Server\obj\Debug\netcoreapp3.1\Server.pdb
+C:\Users\Daniele\Desktop\Git\RivaKamalProgettoTps\Server\obj\Debug\netcoreapp3.1\Server.genruntimeconfig.cache

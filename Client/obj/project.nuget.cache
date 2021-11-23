@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "8EBlyXmWDMZNr4roxIyayz/JPh9ZlLUUTdoQJ9A2QtH+7CKXbzFLJX6SalkPO7P7d4VmtXw5CiLqcsJ09ivueA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Daniele\\Desktop\\Git\\RivaKamalProgettoTps\\Client\\Client.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Daniele\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.21\\microsoft.netcore.app.host.win-x64.3.1.21.nupkg.sha512",
+    "C:\\Users\\Daniele\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
+    "C:\\Users\\Daniele\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512",
+    "C:\\Users\\Daniele\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}
