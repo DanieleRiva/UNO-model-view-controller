@@ -1,4 +1,5 @@
-# UNO CONSOLE - Daniele Riva, Ilias Kamal
+# UNO CONSOLE
+Ricreazione in C# del gioco di carte UNO, con pattern architetturale Model-View-Controller. 
 
 ## Come giocare: ##
 1) Avviare un Server.
